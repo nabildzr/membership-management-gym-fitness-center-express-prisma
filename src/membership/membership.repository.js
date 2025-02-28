@@ -2,12 +2,20 @@ import { prisma } from "../config/prisma.js";
 
 
 export const findAllMembership = async () => {
-  return await prisma.membership.findMany()
+  return await prisma.membership.findMany({
+    // include: {
+    //   payments: true
+    // }
+  })
 }
 
 export const findMembershipById = async (id) => {
   return await prisma.membership.findUnique({
-    where: {id}
+    where: {id},
+    include: {
+      payments: true,
+      users: true
+    }
   })
 }
 
